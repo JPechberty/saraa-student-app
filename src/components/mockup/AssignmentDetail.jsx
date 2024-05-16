@@ -1,9 +1,25 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import {Modal} from "react-bootstrap";
+import AssignmentService from "../../services/assignmentService.js";
 
-export function AssignmentDetail(){
+export function AssignmentDetail({slug}){
     const [modalShow, setModalShow] = useState(false);
+    const [assignment, setAssignment] = useState(null);
+
+    const fetchAssignment = async (slug) => {
+        console.log("render")
+        const data = await AssignmentService.find(slug);
+        setAssignment(data);
+    }
+
+    //fetchAssignments();
+
+    useEffect(() => {
+        if(modalShow){
+            fetchAssignment(slug);
+        }
+    },[modalShow])
 
     const toggleShow = () => {
         setModalShow(true);
@@ -16,7 +32,7 @@ export function AssignmentDetail(){
     return (
         <>
             <Button variant="primary" onClick={toggleShow}>
-                Launch vertically centered modal
+                Details
             </Button>
 
             <Modal
@@ -29,18 +45,17 @@ export function AssignmentDetail(){
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Modal heading
+                        {assignment && assignment.Title || "Loading..."}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4>Centered Modal</h4>
+                    {assignment && <h4>{assignment.Title} - {assignment.ProjectType} - {assignment.Teacher} </h4> || <h4>"Loading..."</h4>}
                     <p>
-                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.
+                        {assignment && assignment.Description || "Loading..."}
                     </p>
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button onClick={()=>fetchAssignment(slug)}>Update</Button>
                     <Button onClick={toggleHide}>Close</Button>
                 </Modal.Footer>
             </Modal>

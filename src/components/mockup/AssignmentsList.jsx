@@ -31,7 +31,7 @@ export function AssignmentsList(){
                             {assignment.Teacher} - {assignment.DueAt} - {assignment.ProjectType}
                         </Card.Text>
                         {/*<Button variant="primary">Details</Button>*/}
-                        <AssignmentDetail/>
+                        <AssignmentDetail slug={assignment.Slug}/>
                     </Card.Body>
                 </Card>
             </Col>

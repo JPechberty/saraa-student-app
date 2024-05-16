@@ -30,7 +30,7 @@ export const useAccountStore = create(
             //On supprime le token du localStorage
             window.localStorage.removeItem("authToken");
             //On supprime le header Authorization de la config par defautkl de axios
-            delete axios.defaults.headers["Authorization"];
+            //delete axios.defaults.headers["Authorization"];
             //console.log("Déconnecté");
             set({loggedIn: false,email:''})
         },
@@ -41,6 +41,8 @@ export const useAccountStore = create(
                 if(exp * 1000 > new Date().getTime()) {
                     set({loggedIn: true, email: email})
                 } else {
+                    //On supprime le token du localStorage
+                    window.localStorage.removeItem("authToken");
                     set({loggedIn: false, email: ''})
                 }
             }
