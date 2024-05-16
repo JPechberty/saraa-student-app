@@ -2,19 +2,15 @@ import {Col, Container, Navbar, Row} from "react-bootstrap";
 import Login from "./components/mockup/Login.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {AssignmentsList} from "./components/mockup/AssignmentsList.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {LogoutBtn} from "./components/mockup/LogoutBtn.jsx";
+import {useAccountStore} from "./hooks/useAccountStore.js";
 export function MockUpInterface() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const {loggedIn,email,login,logout,setup} = useAccountStore();
 
-  const login = () => {
-    setLoggedIn(true);
-  }
-
-  const logout = () => {
-    setLoggedIn(false);
-  }
-
+  useEffect(() => {
+    setup();
+  }, []);
 
   return <>
     {loggedIn &&
@@ -24,7 +20,7 @@ export function MockUpInterface() {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end h-stack gap-2">
               <Navbar.Text>
-                Signed in as: <strong>Mark Otto</strong>
+                Signed in as: <strong>{email}</strong>
               </Navbar.Text>
               <LogoutBtn logout={logout}/>
             </Navbar.Collapse>

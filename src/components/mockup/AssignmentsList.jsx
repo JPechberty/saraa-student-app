@@ -1,18 +1,34 @@
 import {Card, Col, Row, Table} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {AssignmentDetail} from "./AssignmentDetail.jsx";
+import {useEffect, useState} from "react";
+import AssignmentService from "../../services/assignmentService.js";
 
 export function AssignmentsList(){
+
+    const [assignments, setAssignments] = useState([]);
+
+    const fetchAssignments = async () => {
+        console.log("render")
+        const data = await AssignmentService.findAll();
+        setAssignments(data);
+    }
+
+    //fetchAssignments();
+
+    useEffect(() => {
+        fetchAssignments();
+    },[])
+
+
     return <Row xs={1} md={2} className="g-4">
-        {Array.from({ length: 4 }).map((_, idx) => (
-            <Col key={idx}>
+        {assignments.map(assignment => (
+            <Col key={assignment.Slug}>
                 <Card>
                     <Card.Body>
-                        <Card.Title>Card title</Card.Title>
+                        <Card.Title>{assignment.Title}</Card.Title>
                         <Card.Text>
-                            This is a longer card with supporting text below as a natural
-                            lead-in to additional content. This content is a little bit
-                            longer.
+                            {assignment.Teacher} - {assignment.DueAt} - {assignment.ProjectType}
                         </Card.Text>
                         {/*<Button variant="primary">Details</Button>*/}
                         <AssignmentDetail/>
