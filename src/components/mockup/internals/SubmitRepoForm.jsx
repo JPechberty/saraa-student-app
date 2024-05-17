@@ -1,33 +1,23 @@
 import Form from "react-bootstrap/Form";
 import {useState} from "react";
 import Button from "react-bootstrap/Button";
+import AssignmentService from "../../../services/assignmentService.js";
+import {useFormatViolations} from "../../../hooks/useFormatViolations.js";
+import {useRunJob} from "../../../hooks/useRunJob.js";
 
-function SubmitRepoForm(){
+function SubmitRepoForm({slug}){
 
     const [repository, setRepository] = useState('');
     const [errMsg, setErrMsg] = useState({repository:""});
-
-    const formatViolations = (err) => {
-
-
-        if (err) {
-            const apiErrors = {};
-            err.map(({field, message}) => {
-                apiErrors[field.toLowerCase()] = message;
-            });
-
-            console.log(apiErrors)
-            return apiErrors;
-        }
-    };
-
+    const {formatViolations} = useFormatViolations();
+    const {runJob} = useRunJob();
     const handleSubmit = async (e) => {
-        // e.preventDefault();
-        // try {
-        //     await submitRepo({repository});
-        // } catch (err) {
-        //     setErrMsg(formatViolations(err.response.data.error));
-        // }
+        e.preventDefault();
+        try {
+            await runJob(repository,slug);
+        } catch (err) {
+            setErrMsg(formatViolations(err.response.data.error));
+        }
     }
 
 

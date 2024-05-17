@@ -1,26 +1,15 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {useState} from "react";
+import {useFormatViolations} from "../../hooks/useFormatViolations.js";
 
 function Login({login}) {
 
     const [email, setEmail] = useState('std1@mail.Dev');
     const [password, setPassword] = useState('password');
     const [errMsg, setErrMsg] = useState({email:"", password:"",credentials:""});
+    const {formatViolations} = useFormatViolations()
 
-    const formatViolations = (err) => {
-
-
-        if (err) {
-            const apiErrors = {};
-            err.map(({field, message}) => {
-                apiErrors[field.toLowerCase()] = message;
-            });
-
-            console.log(apiErrors)
-            return apiErrors;
-        }
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();

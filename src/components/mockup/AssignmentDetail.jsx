@@ -6,15 +6,25 @@ import SubmitRepoForm from "./internals/SubmitRepoForm.jsx";
 import BadgeTeacher from "./internals/BadgeTeacher.jsx";
 import BadgeProjectType from "./internals/BadgeProjectType.jsx";
 import BadgeTestResult from "./internals/BadgeTestResult.jsx";
+import {useRunJob} from "../../hooks/useRunJob.js";
 
 export function AssignmentDetail({slug}){
     const [modalShow, setModalShow] = useState(false);
     const [assignment, setAssignment] = useState(null);
-
+    const {runJob} = useRunJob();
     const fetchAssignment = async (slug) => {
         console.log("render")
         const data = await AssignmentService.find(slug);
         setAssignment(data);
+    }
+
+    const reRunJob = async (repository,slug) => {
+        try {
+            await runJob(repository,slug);
+            await fetchAssignment(slug);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     //fetchAssignments();
@@ -45,7 +55,7 @@ export function AssignmentDetail({slug}){
                 centered
                 show={modalShow}
                 onHide={toggleHide}
-                fullscreen={true}
+                fullscreen={false}
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -64,13 +74,14 @@ export function AssignmentDetail({slug}){
                         {assignment && assignment.description || "Loading..."}
                     </p>
 
-                    {assignment && !assignment.job && <SubmitRepoForm assignment={assignment} />}
+                    {assignment && !assignment.job && <SubmitRepoForm slug={assignment.slug} />}
                     {assignment && assignment.job &&
                         <div>
                             <h5>Report for submitted repository : {assignment.job.repository}</h5>
                             <h5>Job status : {assignment.job.status}</h5>
                             <h5>Score : {assignment.job.report && assignment.job.report.score || "Not yet graded"}</h5>
                             <h5> Details </h5>
+                            <Button onClick={()=>reRunJob(assignment.job.repository,slug)}>Rerun</Button>
                             <table className={"table table-striped"}>
                                 <thead>
                                     <tr>
