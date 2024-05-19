@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import {Modal} from "react-bootstrap";
-import AssignmentService from "../../services/assignmentService.js";
-import SubmitRepoForm from "./internals/SubmitRepoForm.jsx";
-import BadgeTeacher from "./internals/BadgeTeacher.jsx";
-import BadgeProjectType from "./internals/BadgeProjectType.jsx";
-import BadgeTestResult from "./internals/BadgeTestResult.jsx";
+import SubmitRepoForm from "./SubmitRepoForm.jsx";
+import BadgeTeacher from "./BadgeTeacher.jsx";
+import BadgeProjectType from "./BadgeProjectType.jsx";
+import BadgeTestResult from "./BadgeTestResult.jsx";
 import {useRunJob} from "../../hooks/useRunJob.js";
+import AssignmentService from "../../services/assignmentService.js";
 
 export function AssignmentDetail({slug}){
     const [modalShow, setModalShow] = useState(false);
@@ -55,7 +55,7 @@ export function AssignmentDetail({slug}){
                 centered
                 show={modalShow}
                 onHide={toggleHide}
-                fullscreen={false}
+                fullscreen={true}
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">

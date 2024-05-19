@@ -1,5 +1,5 @@
 import {Col, Container, Row} from "react-bootstrap";
-import LoginForm from "./mockup/internals/LoginForm.jsx";
+import LoginForm from "./parts/LoginForm.jsx";
 import Logo from '../assets/logo.webp';
 export default function Login({login}){
     return (

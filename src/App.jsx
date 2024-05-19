@@ -11,7 +11,7 @@ function App() {
   return (
       <>
         {!loggedIn && <Login login={login}/>}
-        {loggedIn && <AssignmentsList/>}
+        {loggedIn && <AssignmentsList logout={logout}/>}
       </>
   )
 }
