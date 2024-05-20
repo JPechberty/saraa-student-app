@@ -45,7 +45,7 @@ export function AssignmentDetail({slug}){
 
     return (
         <>
-            <Button variant="primary" onClick={toggleShow}>
+            <Button variant="outline-primary" onClick={toggleShow} size={'sm'}>
                 Details
             </Button>
 
@@ -81,7 +81,7 @@ export function AssignmentDetail({slug}){
                             <h5>Job status : {assignment.job.status}</h5>
                             <h5>Score : {assignment.job.report && assignment.job.report.score || "Not yet graded"}</h5>
                             <h5> Details </h5>
-                            <Button onClick={()=>reRunJob(assignment.job.repository,slug)}>Rerun</Button>
+                            <Button variant={'outline-primary'} onClick={()=>reRunJob(assignment.job.repository,slug)}>Rerun</Button>
                             <table className={"table table-striped"}>
                                 <thead>
                                     <tr>
@@ -105,8 +105,8 @@ export function AssignmentDetail({slug}){
                     }
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={()=>fetchAssignment(slug)}>Update</Button>
-                    <Button onClick={toggleHide}>Close</Button>
+                    <Button variant={'outline-primary'} onClick={()=>fetchAssignment(slug)}>Update</Button>
+                    {/*<Button variant={'outline-primary'} onClick={toggleHide}>Close</Button>*/}
                 </Modal.Footer>
             </Modal>
         </>

@@ -16,7 +16,7 @@ export default function LoginForm({login}) {
             await login({email, password});
         } catch (err) {
             if(err.response.status === 401) {
-                setErrMsg({...errMsg,credentials: "Invalid credentials"});
+                setErrMsg({...errMsg,credentials: "Identifiants invalide"});
                 return;
             }
 
@@ -34,7 +34,7 @@ export default function LoginForm({login}) {
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
                             type="email"
-                            placeholder="Enter email"
+                            placeholder="Adresse email"
                             value={email}
                             onChange={e=>setEmail(e.target.value)}
                             isInvalid={!!errMsg.email}
@@ -43,18 +43,18 @@ export default function LoginForm({login}) {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label>Mot de passe</Form.Label>
                         <Form.Control
                             type="password"
-                            placeholder="Password"
+                            placeholder="mot de passe"
                             value={password}
                             onChange={e=>setPassword(e.target.value)}
                             isInvalid={!!errMsg.password}
                         />
                         <Form.Control.Feedback as="div" type="invalid">{errMsg.password}</Form.Control.Feedback>
                     </Form.Group>
-                    <Button variant="primary" type="button" onClick={handleSubmit}>
-                        Sign In
+                    <Button variant="outline-primary" type="button" onClick={handleSubmit}>
+                        Se connecter
                     </Button>
                 </Form>
             </Col>
