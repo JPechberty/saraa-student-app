@@ -49,9 +49,11 @@ export default function LoginForm({login}) {
                 />
                 <Form.Control.Feedback as="div" type="invalid">{errMsg.password}</Form.Control.Feedback>
             </Form.Group>
-            <Button variant="outline-primary" type="button" onClick={handleSubmit}>
-                Se connecter
-            </Button>
+            <div className="d-grid gap-2">
+                <Button variant="outline-primary" type="button" onClick={handleSubmit}>
+                    Se connecter
+                </Button>
+            </div>
         </Form>
     )
 }

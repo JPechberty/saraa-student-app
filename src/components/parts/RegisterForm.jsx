@@ -81,10 +81,12 @@ export default function RegisterForm({login}) {
                 />
                 <Form.Control.Feedback as="div" type="invalid">{errMsg.firstname}</Form.Control.Feedback>
             </Form.Group>
+            <div className="d-grid gap-2">
+                <Button variant="outline-primary" type="button" onClick={handleSubmit}>
+                    Créer mon compte
+                </Button>
+            </div>
 
-            <Button variant="outline-primary" type="button" onClick={handleSubmit}>
-                Créer mon compte
-            </Button>
         </Form>
     )
 }
