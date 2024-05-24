@@ -37,7 +37,7 @@ export default function RegisterForm({login}) {
     return (
         <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Adresse email</Form.Label>
                 <Form.Control
                     type="email"
                     placeholder="Adresse email"
@@ -59,6 +59,24 @@ export default function RegisterForm({login}) {
                 />
                 <Form.Control.Feedback as="div" type="invalid">{errMsg.password}</Form.Control.Feedback>
             </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Classe</Form.Label>
+                <Form.Select
+                    aria-label="Default select example"
+                    value={registration.classroom}
+                    onChange={handleChange}
+                    isInvalid={!!errMsg.classroom}
+                >
+                    <option>Classe ....</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </Form.Select>
+                <Form.Control.Feedback as="div" type="invalid">{errMsg.classroom}</Form.Control.Feedback>
+            </Form.Group>
+
+
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Nom</Form.Label>
                 <Form.Control

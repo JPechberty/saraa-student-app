@@ -27,7 +27,7 @@ export default function LoginForm({login}) {
     return (
         <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Adresse email</Form.Label>
                 <Form.Control
                     type="email"
                     placeholder="Adresse email"
