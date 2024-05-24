@@ -1,9 +1,9 @@
 import Form from "react-bootstrap/Form";
 import {useState} from "react";
 import Button from "react-bootstrap/Button";
-import AssignmentService from "../../../services/assignmentService.js";
-import {useFormatViolations} from "../../../hooks/useFormatViolations.js";
-import {useRunJob} from "../../../hooks/useRunJob.js";
+import {useFormatViolations} from "../../hooks/useFormatViolations.js";
+import {useRunJob} from "../../hooks/useRunJob.js";
+
 
 function SubmitRepoForm({slug}){
 

@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import {Modal} from "react-bootstrap";
-import AssignmentService from "../../services/assignmentService.js";
-import SubmitRepoForm from "./internals/SubmitRepoForm.jsx";
-import BadgeTeacher from "./internals/BadgeTeacher.jsx";
-import BadgeProjectType from "./internals/BadgeProjectType.jsx";
-import BadgeTestResult from "./internals/BadgeTestResult.jsx";
+import SubmitRepoForm from "./SubmitRepoForm.jsx";
+import BadgeTeacher from "./BadgeTeacher.jsx";
+import BadgeProjectType from "./BadgeProjectType.jsx";
+import BadgeTestResult from "./BadgeTestResult.jsx";
 import {useRunJob} from "../../hooks/useRunJob.js";
+import AssignmentService from "../../services/assignmentService.js";
 
 export function AssignmentDetail({slug}){
     const [modalShow, setModalShow] = useState(false);
@@ -45,7 +45,7 @@ export function AssignmentDetail({slug}){
 
     return (
         <>
-            <Button variant="primary" onClick={toggleShow}>
+            <Button variant="outline-primary" onClick={toggleShow} size={'sm'}>
                 Details
             </Button>
 
@@ -55,7 +55,7 @@ export function AssignmentDetail({slug}){
                 centered
                 show={modalShow}
                 onHide={toggleHide}
-                fullscreen={false}
+                fullscreen={true}
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -81,7 +81,7 @@ export function AssignmentDetail({slug}){
                             <h5>Job status : {assignment.job.status}</h5>
                             <h5>Score : {assignment.job.report && assignment.job.report.score || "Not yet graded"}</h5>
                             <h5> Details </h5>
-                            <Button onClick={()=>reRunJob(assignment.job.repository,slug)}>Rerun</Button>
+                            <Button variant={'outline-primary'} onClick={()=>reRunJob(assignment.job.repository,slug)}>Rerun</Button>
                             <table className={"table table-striped"}>
                                 <thead>
                                     <tr>
@@ -105,8 +105,8 @@ export function AssignmentDetail({slug}){
                     }
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={()=>fetchAssignment(slug)}>Update</Button>
-                    <Button onClick={toggleHide}>Close</Button>
+                    <Button variant={'outline-primary'} onClick={()=>fetchAssignment(slug)}>Update</Button>
+                    {/*<Button variant={'outline-primary'} onClick={toggleHide}>Close</Button>*/}
                 </Modal.Footer>
             </Modal>
         </>
