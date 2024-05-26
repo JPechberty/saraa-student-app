@@ -7,6 +7,7 @@ export const useAccountStore = create(
         loggedIn: false,
         email: '',
         login: (credentials) => {
+            console.log("trigger login")
             return axios
                 .post(
                     "http://localhost:8080/api/v1/authenticate",
@@ -46,7 +47,21 @@ export const useAccountStore = create(
                     set({loggedIn: false, email: ''})
                 }
             }
-        }
+        },
+        register: (registration) => {
+            return axios
+                .post(
+                    "http://localhost:8080/api/v1/student/register",
+                    {...registration,classroom:parseInt(registration.classroom)},
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                )
+                .then(response => response.data)
+
+        },
     })
 )
 

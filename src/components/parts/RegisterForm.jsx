@@ -1,32 +1,35 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useFormatViolations} from "../../hooks/useFormatViolations.js";
+import classroomsService from "../../services/classroomsService.js";
 
-export default function RegisterForm({login}) {
+export default function RegisterForm({register,login}) {
+    const [classrooms, setClassrooms] = useState([]);
     const [registration, setRegistration] = useState({
-        email: "",
-        password: "",
-        firstname: "",
-        lastname: "",
-        classroom: ""
+        email: "std2@mail.dev",
+        password: "password",
+        firstname: "Student 2",
+        lastname: "Test",
+        classroom: "1"
     });
     const [errMsg, setErrMsg] = useState({email: "", password: "", firstname: "", lastname: "", classroom: ""});
+    const [errMainMsg, setErrMainMsg] = useState({error: ""});
     const {formatViolations} = useFormatViolations()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(registration);
-        // try {
-        //     await login({email, password});
-        // } catch (err) {
-        //     if(err.response.status === 401) {
-        //         setErrMsg({...errMsg,credentials: "Identifiants invalide"});
-        //         return;
-        //     }
-        //
-        //     setErrMsg(formatViolations(err.response.data.error));
-        // }
+        try {
+            await register(registration);
+            await login({email:registration.email,password:registration.password});
+        } catch (err) {
+            console.log(err);
+            if (err.response.status === 400) {
+                setErrMainMsg({error: err.response.data.error});
+                return;
+            }
+            setErrMsg(formatViolations(err.response.data.error));
+        }
 
     }
 
@@ -34,15 +37,26 @@ export default function RegisterForm({login}) {
         setRegistration({...registration, [e.target.name]: e.target.value});
     }
 
+    const fetchClassrooms = async () => {
+        const classrooms = await classroomsService.findAll();
+        setClassrooms(classrooms);
+    }
+
+    useEffect(() => {
+        fetchClassrooms();
+    }, []);
+
     return (
         <Form>
+            {errMainMsg.error && <div className="alert alert-danger mb-2 mt-2">{errMainMsg.error}</div>}
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Adresse email</Form.Label>
                 <Form.Control
                     type="email"
                     placeholder="Adresse email"
+                    name={"email"}
                     value={registration.email}
-                    onChange={handleChange}
+                    onChange={e=>handleChange(e)}
                     isInvalid={!!errMsg.email}
                 />
                 <Form.Control.Feedback as="div" type="invalid">{errMsg.email}</Form.Control.Feedback>
@@ -52,26 +66,29 @@ export default function RegisterForm({login}) {
                 <Form.Label>Mot de passe</Form.Label>
                 <Form.Control
                     type="password"
+                    name={"password"}
                     placeholder="mot de passe"
                     value={registration.password}
-                    onChange={handleChange}
+                    onChange={e=>handleChange(e)}
                     isInvalid={!!errMsg.password}
                 />
                 <Form.Control.Feedback as="div" type="invalid">{errMsg.password}</Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="classroom">
                 <Form.Label>Classe</Form.Label>
                 <Form.Select
                     aria-label="Default select example"
+                    name={"classroom"}
                     value={registration.classroom}
-                    onChange={handleChange}
+                    onChange={e=>handleChange(e)}
                     isInvalid={!!errMsg.classroom}
                 >
                     <option>Classe ....</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {classrooms.map(classroom => (
+                        <option key={classroom.id} value={classroom.id}>{classroom.name}</option>
+
+                    ))}
                 </Form.Select>
                 <Form.Control.Feedback as="div" type="invalid">{errMsg.classroom}</Form.Control.Feedback>
             </Form.Group>
@@ -82,8 +99,9 @@ export default function RegisterForm({login}) {
                 <Form.Control
                     type="text"
                     placeholder="Nom"
+                    name={"lastname"}
                     value={registration.lastname}
-                    onChange={handleChange}
+                    onChange={e=>handleChange(e)}
                     isInvalid={!!errMsg.lastname}
                 />
                 <Form.Control.Feedback as="div" type="invalid">{errMsg.lastname}</Form.Control.Feedback>
@@ -93,8 +111,9 @@ export default function RegisterForm({login}) {
                 <Form.Control
                     type="text"
                     placeholder="Prénom"
+                    name={"firstname"}
                     value={registration.firstname}
-                    onChange={handleChange}
+                    onChange={e=>handleChange(e)}
                     isInvalid={!!errMsg.firstname}
                 />
                 <Form.Control.Feedback as="div" type="invalid">{errMsg.firstname}</Form.Control.Feedback>

@@ -12,7 +12,10 @@ export default function AssignmentsList({logout}){
     const fetchAssignments = async () => {
         console.log("render")
         const data = await AssignmentService.findAll();
-        setAssignments(data);
+        if(data){
+            setAssignments(data);
+        }
+
     }
 
     //fetchAssignments();

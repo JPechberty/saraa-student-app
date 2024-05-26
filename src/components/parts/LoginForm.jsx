@@ -15,7 +15,7 @@ export default function LoginForm({login}) {
             await login({email, password});
         } catch (err) {
             if (err.response.status === 401) {
-                setErrMsg({...errMsg, credentials: "Identifiants invalide"});
+                setErrMsg({...errMsg, credentials: "Identifiants invalides"});
                 return;
             }
 
@@ -49,6 +49,7 @@ export default function LoginForm({login}) {
                 />
                 <Form.Control.Feedback as="div" type="invalid">{errMsg.password}</Form.Control.Feedback>
             </Form.Group>
+            {errMsg.credentials && <div className="alert alert-danger mb-2 mt-2">{errMsg.credentials}</div>}
             <div className="d-grid gap-2">
                 <Button variant="outline-primary" type="button" onClick={handleSubmit}>
                     Se connecter

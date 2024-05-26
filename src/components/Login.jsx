@@ -2,7 +2,7 @@ import {Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import LoginForm from "./parts/LoginForm.jsx";
 import Logo from '../assets/logo.webp';
 import RegisterForm from "./parts/RegisterForm.jsx";
-export default function Login({login}){
+export default function Login({login,register}){
 
     return (
        <Container fluid style={{height:'100%'}}>
@@ -25,7 +25,7 @@ export default function Login({login}){
                                      <LoginForm login={login}/>
                                </Tab>
                                <Tab eventKey="register" title="Créer mon compte">
-                                   <RegisterForm login={login}/>
+                                   <RegisterForm register={register} login={login}/>
                                </Tab>
                            </Tabs>
                        </Col>
