@@ -1,7 +1,7 @@
 #Stage 1
 FROM node:21-alpine as builder
 
-ARG API_URL
+ENV API_URL=${API_URL}
 ENV VITE_API_URL=${API_URL}
 
 WORKDIR /app
