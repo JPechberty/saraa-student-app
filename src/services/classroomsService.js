@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function findAll() {
     return axios.get(
-        "http://localhost:8080/api/v1/classrooms",
+        import.meta.env.VITE_API_URL+"/classrooms",
         {
                 headers: {
                     "Content-Type": "application/json",

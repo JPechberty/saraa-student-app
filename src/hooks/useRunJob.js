@@ -1,7 +1,7 @@
 export const useRunJob = () => {
     const runJob = async (repositoryName,slug) => {
         return fetch(
-            "http://localhost:8080/api/v1/student/assignments/"+slug+"/run-job",
+            import.meta.env.VITE_API_URL+"/student/assignments"+slug+"/run-job",
             {
                 method: "POST",
                 headers: {

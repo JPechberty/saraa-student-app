@@ -10,7 +10,7 @@ export const useAccountStore = create(
             console.log("trigger login")
             return axios
                 .post(
-                    "http://localhost:8080/api/v1/authenticate",
+                    import.meta.env.VITE_API_URL+"/authenticate",
                     {...credentials,type:"student"},
                     {
                         headers: {
@@ -51,7 +51,7 @@ export const useAccountStore = create(
         register: (registration) => {
             return axios
                 .post(
-                    "http://localhost:8080/api/v1/student/register",
+                    import.meta.env.VITE_API_URL+"/student/register",
                     {...registration,classroom:parseInt(registration.classroom)},
                     {
                         headers: {

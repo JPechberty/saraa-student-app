@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function findAll() {
     return axios.get(
-        "http://localhost:8080/api/v1/student/assignments",
+        import.meta.env.VITE_API_URL+"/student/assignments",
         {
                 headers: {
                     "Content-Type": "application/json",
@@ -16,7 +16,7 @@ async function findAll() {
 
 async function find(slug) {
     return axios.get(
-        "http://localhost:8080/api/v1/student/assignments/"+slug,
+        import.meta.env.VITE_API_URL+"/student/assignments"+slug,
         {
             headers: {
                 "Content-Type": "application/json",
@@ -30,7 +30,7 @@ async function find(slug) {
 
 async function runJob(repositoryName,slug) {
     return axios.post(
-        "http://localhost:8080/api/v1/student/assignments/"+slug+"/run-job",
+        import.meta.env.VITE_API_URL+"/student/assignments"+slug+"/run-job",
         {"source_repository_name":repositoryName},
         {
             headers: {
