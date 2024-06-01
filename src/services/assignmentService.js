@@ -16,7 +16,7 @@ async function findAll() {
 
 async function find(slug) {
     return axios.get(
-        import.meta.env.VITE_API_URL+"/student/assignments"+slug,
+        import.meta.env.VITE_API_URL+"/student/assignments/"+slug,
         {
             headers: {
                 "Content-Type": "application/json",

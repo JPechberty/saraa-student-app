@@ -81,7 +81,13 @@ export function AssignmentDetail({slug}){
                             <h5>Job status : {assignment.job.status}</h5>
                             <h5>Score : {assignment.job.report && assignment.job.report.score || "Not yet graded"}</h5>
                             <h5> Details </h5>
-                            <Button variant={'outline-primary'} onClick={()=>reRunJob(assignment.job.repository,slug)}>Rerun</Button>
+                            <Button
+                                variant={'outline-primary'}
+                                onClick={()=>reRunJob(assignment.job.repository,slug)}
+                                disabled={Date.parse(assignment.due_at) > Date.parse(new Date().toLocaleDateString())}
+                            >
+                                Relancer
+                            </Button>
                             <table className={"table table-striped"}>
                                 <thead>
                                     <tr>
